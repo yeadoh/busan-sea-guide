@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Busan 7 Ocean Wonders</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;500;700&family=Playfair+Display:ital,wght@1,600;1,800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-blue: #4dabf7; /* 좀 더 밝고 선명한 블루 */
+            --accent-gold: #ffec99; /* 밝은 골드 */
+            --bg-dark-grey: #1a1c20; /* 감각적인 다크 그레이 배경 */
+            --text-white: #ffffff;
+            --text-dim: rgba(255, 255, 255, 0.8);
+        }
+
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            background-color: var(--bg-dark-grey); /* 배경색 변경 */
+            margin: 0;
+            padding: 50px 20px;
+            color: var(--text-white);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 80px;
+        }
+
+        .header h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 4rem; /* 크기 확대 */
+            font-weight: 800;
+            color: #e9ecef; /* 밝은 회백색 */
+            margin-bottom: 15px;
+            letter-spacing: 4px;
+            font-style: italic;
+            /* 입체감 있는 텍스트 쉐도우 효과 */
+            text-shadow: 
+                2px 2px 0px #343a40, 
+                4px 4px 0px rgba(0,0,0,0.2),
+                0px 0px 20px rgba(77, 171, 247, 0.4); 
+        }
+
+.header p {
+        font-family: 'Noto Sans KR', sans-serif;
+        font-weight: 200; /* 아주 가벼운 두께로 모던함 강조 */
+        color: #ffffff;
+        font-size: 1.1rem;
+        letter-spacing: 0.4em; /* 자간을 넓혀서 여유로운 느낌 부여 */
+        margin-top: 10px;
+        text-indent: 0.4em; /* 자간 때문에 치우친 중앙 정렬 보정 */
+        opacity: 0.85;
+        text-transform: uppercase;
+        
+        /* 은은한 광채 효과 */
+        text-shadow: 0px 0px 10px rgba(255, 255, 255, 0.3);
+        
+        /* 애니메이션 효과 (선택사항: 부드럽게 나타남) */
+        animation: fadeInSubtitle 2s ease-in-out;
+    }
+
+    @keyframes fadeInSubtitle {
+        from { opacity: 0; transform: translateY(10px); }
+        to { opacity: 0.85; transform: translateY(0); }
+    }
+
+        /* 7대 명소 그리드 레이아웃 */
+        .ocean-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 30px;
+        }
+
+        .ocean-card {
+            position: relative;
+            height: 450px;
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            cursor: pointer;
+            border: 1px solid rgba(255,255,255,0.1); /* 미세한 테두리로 입체감 추가 */
+        }
+
+        .ocean-card:hover {
+            transform: translateY(-15px);
+            box-shadow: 0 30px 60px rgba(0,0,0,0.6);
+            border-color: var(--primary-blue);
+        }
+
+        .ocean-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.8s ease;
+        }
+
+        .ocean-card:hover .ocean-img {
+            transform: scale(1.15);
+        }
+
+        .overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 100%;
+            background: linear-gradient(to top, rgba(0,0,0,0.9) 5%, transparent 70%);
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 35px;
+            color: white;
+            box-sizing: border-box;
+        }
+
+        .ocean-num {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            color: var(--accent-gold);
+            margin-bottom: 5px;
+            font-weight: 800;
+        }
+
+        .ocean-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+        }
+
+        .ocean-desc {
+            font-size: 0.95rem;
+            line-height: 1.6;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.5s ease;
+            font-weight: 300;
+            color: #dee2e6;
+        }
+
+        .ocean-card:hover .ocean-desc {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        @media (max-width: 768px) {
+            .header h1 { font-size: 2.5rem; }
+            body { padding: 30px 15px; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="header">
+        <h1>The 7 Ocean Wonders</h1>
+        <p>부산의 푸른 영혼을 간직한 일곱 개의 바다 명소</p>
+    </div>
+
+    <div class="ocean-grid">
+        <div class="ocean-card">
+            <img src="https://images.unsplash.com/photo-1599388856694-811c75908323?auto=format&fit=crop&w=600&q=80" alt="해운대" class="ocean-img">
+            <div class="overlay">
+                <span class="ocean-num"></span>
+                <h2 class="ocean-title">해운대 (Haeundae)</h2>
+                <p class="ocean-desc">부산을 상징하는 세계적인 해변으로, 화려한 스카이라인과 끝없이 펼쳐진 백사장이 절경을 이룹니다.</p>
+            </div>
+        </div>
+
+        <div class="ocean-card">
+            <img src="https://images.unsplash.com/photo-1596403285093-6c04f9811566?auto=format&fit=crop&w=600&q=80" alt="광안리" class="ocean-img">
+            <div class="overlay">
+                <span class="ocean-num"></span>
+                <h2 class="ocean-title">광안리 (Gwangalli)</h2>
+                <p class="ocean-desc">광안대교의 보석 같은 야경과 트렌디한 카페들이 어우러진 젊음과 낭만의 거리입니다.</p>
+            </div>
+        </div>
+
+        <div class="ocean-card">
+            <img src="https://images.unsplash.com/photo-1621259500003-8874a7065979?auto=format&fit=crop&w=600&q=80" alt="송정" class="ocean-img">
+            <div class="overlay">
+                <span class="ocean-num"></span>
+                <h2 class="ocean-title">송정 (Songjeong)</h2>
+                <p class="ocean-desc">서퍼들의 성지로 불리며, 부드러운 모래와 얕은 수심으로 여유로운 휴식을 선사합니다.</p>
+            </div>
+        </div>
+
+        <div class="ocean-card">
+            <img src="https://images.unsplash.com/photo-1579208030886-b937fe0925dc?auto=format&fit=crop&w=600&q=80" alt="다대포" class="ocean-img">
+            <div class="overlay">
+                <span class="ocean-num"></span>
+                <h2 class="ocean-title">다대포 (Dadaepo)</h2>
+                <p class="ocean-desc">하늘과 바다가 붉게 물드는 환상적인 낙조와 광활한 갯벌이 숨 쉬는 생태의 장입니다.</p>
+            </div>
+        </div>
+
+        <div class="ocean-card">
+            <img src="https://images.unsplash.com/photo-1583248351025-a7457492976d?auto=format&fit=crop&w=600&q=80" alt="송도" class="ocean-img">
+            <div class="overlay">
+                <span class="ocean-num"></span>
+                <h2 class="ocean-title">송도 (Songdo)</h2>
+                <p class="ocean-desc">우리나라 최초의 공설 해수욕장으로, 바다 위를 가로지르는 케이블카가 특별한 경험을 제공합니다.</p>
+            </div>
+        </div>
+
+        <div class="ocean-card">
+            <img src="https://images.unsplash.com/photo-1597843786271-33104677943f?auto=format&fit=crop&w=600&q=80" alt="일광" class="ocean-img">
+            <div class="overlay">
+                <span class="ocean-num"></span>
+                <h2 class="ocean-title">일광 (Ilgwang)</h2>
+                <p class="ocean-desc">아담한 포구의 정취와 기장의 맑은 바다를 고스란히 간직한 평화로운 휴양지입니다.</p>
+            </div>
+        </div>
+
+        <div class="ocean-card">
+            <img src="https://images.unsplash.com/photo-1596402184320-417d7178b2cd?auto=format&fit=crop&w=600&q=80" alt="임랑" class="ocean-img">
+            <div class="overlay">
+                <span class="ocean-num"></span>
+                <h2 class="ocean-title">임랑 (Imrang)</h2>
+                <p class="ocean-desc">아름다운 소나무 숲과 반짝이는 파도가 만나 동해안의 보석이라 불리는 조용한 해변입니다.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
