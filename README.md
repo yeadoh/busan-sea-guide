@@ -9,7 +9,7 @@ an Ocean View: 부산의 7대 바다 명소
 ##  Preview (미리보기)
 
 <p align="center">
-  <img src="https://images.unsplash.com/photo-1636609973809-77576595605d?q=80&w=1000&auto=format&fit=crop" width="800" alt="Busan Gwangalli Bridge View">
+  <img src="https://d2mgzmtdeipcjp.cloudfront.net/files/good/2025/03/17/17421902532549.jpg?s=992x496" width="800" alt="Busan Gwangalli Bridge View">
 </p>
 
 <br>
@@ -20,7 +20,6 @@ an Ocean View: 부산의 7대 바다 명소
 
 * **HTML/CSS**를 활용한 반응형 웹 디자인
 * 각 명소별 **특징과 분위기** 시각화
-* **교통편 및 꿀팁** 정보 제공
 
 <br>
 
@@ -28,44 +27,40 @@ an Ocean View: 부산의 7대 바다 명소
 
 | 순위 | 장소 (Place) | 특징 (Feature) | 분위기 (Vibe) |
 | :---: | :--- | :--- | :--- |
-| 1 | **광안리 해수욕장** | 광안대교 야경과 드론쇼 |  화려함, 낭만적 |
-| 2 | **해운대 해수욕장** | 끝없이 펼쳐진 백사장 |  활기참, 글로벌 |
-| 3 | **다대포 해수욕장** | 황홀한 일몰과 낙조분수 |  감성적, 몽환적 |
-| 4 | **송정 해수욕장** | 서핑의 성지, 블루라인파크 |  힙함, 자유로움 |
-| 5 | **영도 흰여울문화마을** | 절벽 위 파란 바다와 골목길 |  아기자기, 예술적 |
-| 6 | **기장 오랑대공원** | 기암괴석과 거친 파도 |  웅장함, 고요함 |
-| 7 | **일광 해수욕장** | 한적하고 평화로운 어촌 풍경 |  여유로움, 힐링 |
+| 1 | **광안리 해수욕장** | 광안대교 야경과 해변 카페거리 |  화려함, 낭만적 |
+| 2 | **해운대 해수욕장** | 넓은 백사장과 다이내믹한 즐길 거리 |  활기참, 글로벌 |
+| 3 | **송정 해수욕장** | 사계절 서핑과 완만한 수심 |  힙함, 가족적 |
+| 4 | **다대포 해수욕장** | 낙동강 모래밭과 황홀한 일몰 조망 |  몽환적, 감성적 |
+| 5 | **오륙도** | 신비로운 바위섬과 지질 명소 탐방 |  신비로움, 자연적 |
+| 6 | **태종대** | 깎아지른 기암괴석과 숲길의 절경 |  웅장함, 압도적 |
+| 7 | **칠암 신평소 공원** | 배 조형물과 한적한 해안 산책로 |  여유로움, 힐링 |
 
 <br>
 
-##  Tech Stack (기술 스택)
+##  Tech Stack & Learning Points (기술 스택)
 
-<img src="https://img.shields.io/badge/HTML5-E34F26?style=flat-square&logo=html5&logoColor=white"/> <img src="https://img.shields.io/badge/CSS3-1572B6?style=flat-square&logo=css3&logoColor=white"/> <img src="https://img.shields.io/badge/Git-F05032?style=flat-square&logo=git&logoColor=white"/> <img src="https://img.shields.io/badge/GitHub-181717?style=flat-square&logo=github&logoColor=white"/>
-
-* **Semantic HTML Markup**: 웹 표준을 준수하는 구조 설계
-* **Flexbox & Grid**: 깔끔한 레이아웃 배치
-* **Media Queries**: 모바일/데스크톱 반응형 지원
+<img src="https://img.shields.io/badge/HTML5-E34F26?style=flat-square&logo=html5&logoColor=white"/> <img src="https://img.shields.io/badge/CSS3-1572B6?style=flat-square&logo=css3&logoColor=white"/> <img src="https://img.shields.io/badge/Git-F05032?style=flat-square&logo=git&logoColor=white"/> <img src="https://img.shields.io/badge/GitHub-181717?style=flat-square&logo=github&logoColor=white"/> <img src="https://img.shields.io/badge/Google%20Gemini-8E75B2?style=flat-square&logo=googlebard&logoColor=white"/>
 
 <br>
 
-##  How to Run (실행 방법)
+**이 프로젝트는 AI 도구를 효율적으로 활용하되, 팀의 기획 의도와 직접적인 자료 조사를 통해 완성도를 높이는 협업 및 AI 활용 방식을 채택했습니다.**
 
-이 프로젝트를 로컬에서 확인하고 싶다면 아래 명령어를 입력하세요.
+* **AI-Assisted Development & Refactoring**
+  * Gemini를 활용하여 초기 HTML/CSS 레이아웃(Skeleton)을 신속하게 구축하여 개발 시간 단축
+  * **직접 수행한 자료 조사(Domain Research)**를 바탕으로 AI가 생성한 더미 데이터를 실제 부산 명소 정보로 교체 및 검증
+  * AI 코드를 그대로 사용하지 않고, 웹 표준과 프로젝트 기획에 맞춰 **직접 코드 리팩토링 및 커스터마이징** 수행
+* **Git Branch Workflow**
+  * `main` 브랜치와 개별 작업 브랜치(`boss` 등)를 분리하여 운영
+  * **Pull Request(PR)**를 통한 코드 리뷰 및 Merge 과정을 통해 충돌 없는 협업 시뮬레이션
+* **Linux (Ubuntu) & CLI Environment**
+  * GUI가 아닌 **리눅스 터미널(CLI)** 환경에서 Git 명령어(`add`, `commit`, `push`, `merge`) 숙달
+  * **Vim 에디터**를 활용한 코드 직접 수정 및 트러블 슈팅 능력 배양
 
-```bash
-# 1. 저장소 복제하기
-git clone [https://github.com/사용자명/레포지토리이름.git](https://github.com/사용자명/레포지토리이름.git)
+<br>
 
-# 2. 폴더로 이동
-cd 레포지토리이름
 
-# 3. index.html 파일 실행 (브라우저 열기)
+### Contact
 
- Contact
-Developer: [본인이름]
+Team 부산: [이예찬, 박소영, 김강환, 이경민]
 
-Email: [본인이메일@example.com]
 
-GitHub: https://github.com/본인아이디
-
-<p align="center"> Copyright  2026 Busan Ocean Project. All rights reserved. </p>
