@@ -90,7 +90,7 @@ p {
     box-shadow: 0 10px 20px rgba(255, 255, 255, 0.1);
 }
 
-/* 배경 효과 */
+/* 배경 효과 수정 */
 .bg-blur {
     position: absolute;
     top: 50%;
@@ -101,6 +101,9 @@ p {
     background: radial-gradient(circle, rgba(134, 168, 231, 0.2) 0%, rgba(5, 5, 5, 0) 70%);
     filter: blur(80px);
     z-index: 1;
+
+    /* 핵심 추가 코드: 이 요소는 마우스 클릭을 무시하고 아래에 있는 버튼에 전달함 */
+    pointer-events: none; 
 }
 
 /* 애니메이션 */
@@ -108,4 +111,5 @@ p {
     0% { background-position: 0% 50%; }
     50% { background-position: 100% 50%; }
     100% { background-position: 0% 50%; }
+
 }
