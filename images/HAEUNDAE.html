@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dark Silver Guestbook</title>
+    <link rel="stylesheet" href="gueststyle.css">
+</head>
+<body>
+
+<div class="glass-container">
+    <section class="write-area">
+        <h2 class="title">MEMORIES</h2>
+        <form id="guestForm">
+            <div class="input-box">
+                <textarea id="guestContent" name="comment" placeholder="바다를 수놓은, 당신의 이야기를 들려주세요..." required></textarea>
+                
+                <div class="action-bar">
+                    <div class="file-wrapper">
+                        <label for="photo-upload">
+                            <span class="icon">📷</span> 사진 선택
+                        </label>
+                        <input type="file" id="photo-upload" name="photo" accept="image/*">
+                    </div>
+                    <button type="submit" class="btn-submit">입력</button>
+                </div>
+            </div>
+        </form>
+    </section>
+
+    <hr class="divider">
+
+    <section class="display-area">
+        <div class="list-header">
+            <span>Recent Guest</span>
+            <span id="recordCount" class="count">0 Records</span>
+        </div>
+
+        <div class="post-list" id="postList">
+       
+        </div>
+    </section>
+</div>
+
+<script>
+const guestForm = document.getElementById('guestForm');
+const postList = document.getElementById('postList');
+const guestContent = document.getElementById('guestContent');
+const recordCount = document.getElementById('recordCount');
+const photoUpload = document.getElementById('photo-upload');
+const fileLabel = document.querySelector('.file-wrapper label');
+
+// 페이지 로드 시 저장된 데이터 불러오기
+window.addEventListener('DOMContentLoaded', loadPosts);
+
+// 1. 사진 선택 시 파일명 표시
+photoUpload.addEventListener('change', function() {
+    if (this.files && this.files[0]) {
+        const fileName = this.files[0].name;
+        const displayWait = fileName.length > 10 ? fileName.substring(0, 10) + "..." : fileName;
+        fileLabel.innerHTML = `<span class="icon">✅</span> ${displayWait}`;
+        fileLabel.style.color = "#5bc0de";
+    } else {
+        fileLabel.innerHTML = `<span class="icon">📷</span> 사진 선택`;
+        fileLabel.style.color = "#aaa";
+    }
+});
+
+// 2. 방명록 등록 및 저장
+guestForm.addEventListener('submit', function(e) {
+    e.preventDefault(); 
+
+    const text = guestContent.value;
+    const file = photoUpload.files[0];
+    const now = new Date();
+    const dateStr = `${now.getFullYear()}.${String(now.getMonth() + 1).padStart(2, '0')}.${String(now.getDate()).padStart(2, '0')}`;
+
+    // 이미지 파일을 Base64 문자열로 변환하여 저장할 준비
+    if (file) {
+        const reader = new FileReader();
+        reader.onload = function(event) {
+            const imageData = event.target.result;
+            saveAndRenderPost(text, dateStr, imageData);
+        };
+        reader.readAsDataURL(file);
+    } else {
+        saveAndRenderPost(text, dateStr, null);
+    }
+
+    // 입력창 초기화
+    guestContent.value = '';
+    photoUpload.value = ''; 
+    fileLabel.innerHTML = `<span class="icon">📷</span> 사진 선택`;
+    fileLabel.style.color = "#aaa";
+});
+
+// 포스트를 화면에 그리고 로컬스토리지에 저장하는 함수
+function saveAndRenderPost(text, date, imageSrc) {
+    const postData = { text, date, imageSrc };
+    
+    // 화면에 추가
+    renderPost(postData);
+
+    // 로컬스토리지 저장
+    const savedPosts = JSON.parse(localStorage.getItem('guestbookPosts') || '[]');
+    savedPosts.unshift(postData);
+    localStorage.setItem('guestbookPosts', JSON.stringify(savedPosts));
+    
+    updateCount();
+}
+
+// 화면에 포스트를 그리는 함수
+function renderPost(data) {
+    const newCard = document.createElement('article');
+    newCard.className = 'post-card';
+    
+    let imageHtml = data.imageSrc ? `<img src="${data.imageSrc}" style="width:100%; border-radius:12px; margin-bottom:12px; display:block; object-fit:cover; max-height:300px;">` : '';
+
+    newCard.innerHTML = `
+        ${imageHtml}
+        <p class="post-content">${data.text}</p>
+        <div class="post-meta">${data.date} | Guest</div>
+    `;
+
+    postList.prepend(newCard);
+}
+
+// 저장된 포스트 불러오기 함수
+function loadPosts() {
+    const savedPosts = JSON.parse(localStorage.getItem('guestbookPosts') || '[]');
+    // 배열을 뒤집어서(오래된 것부터) 순서대로 prepend 해야 최신순으로 보임
+    savedPosts.reverse().forEach(post => renderPost(post));
+    updateCount();
+}
+
+// 기록 개수 업데이트
+function updateCount() {
+    const currentCount = postList.querySelectorAll('.post-card').length;
+    recordCount.innerText = `${currentCount} Records`;
+}
+</script>
+
+</body>
+</html>
+
