@@ -113,3 +113,58 @@ p {
     100% { background-position: 0% 50%; }
 
 }
+
+/* 모달 전체 배경 (어두운 부분) */
+.modal-overlay {
+    display: none; /* 기본적으로 숨김 */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.85);
+    z-index: 9999;
+    justify-content: center;
+    align-items: center;
+    backdrop-filter: blur(5px);
+}
+
+/* 팝업창 본체 (작은 창) */
+.modal-content {
+    position: relative;
+    width: 80%;       /* 가로 크기 (원하는 대로 조절 가능) */
+    max-width: 900px;
+    height: 70vh;     /* 세로 크기 */
+    background: white;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 25px 50px rgba(0,0,0,0.5);
+    animation: modalAppear 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+@keyframes modalAppear {
+    from { opacity: 0; transform: scale(0.9); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+/* iframe (외부 사이트가 나타나는 영역) */
+#popupFrame {
+    width: 100%;
+    height: 100%;
+}
+
+/* 우측 상단 닫기 버튼 */
+.close-btn {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    font-size: 30px;
+    color: #333;
+    cursor: pointer;
+    z-index: 10001;
+    transition: color 0.3s;
+}
+
+.close-btn:hover {
+    color: var(--primary-blue);
+}
