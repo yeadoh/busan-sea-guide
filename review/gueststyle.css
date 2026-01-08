@@ -1,0 +1,144 @@
+/* 기본 설정 */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    /* 더 어두운 다크 실버 그라데이션 */
+    background: radial-gradient(circle at top left, #4a4e52, #2c2f33);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Pretendard', sans-serif;
+    color: #e0e0e0; /* 기본 텍스트를 밝게 */
+}
+
+/* 컨테이너 */
+.glass-container {
+    width: 90%;
+    max-width: 450px;
+    background: rgba(45, 48, 53, 0.85); /* 어두운 반투명 */
+    backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 30px;
+    padding: 40px 30px;
+    box-shadow: 20px 20px 50px rgba(0,0,0,0.5);
+}
+
+.title {
+    font-size: 1.3rem;
+    color: #ffffff; /* 흰색으로 강조 */
+    text-align: center;
+    letter-spacing: 6px;
+    margin-bottom: 25px;
+    font-weight: 400;
+    text-shadow: 0 0 10px rgba(255,255,255,0.2);
+}
+
+/* 입력창 구역 */
+.input-box {
+    background: #383c41;
+    border-radius: 20px;
+    padding: 20px;
+    box-shadow: inset 4px 4px 10px rgba(0,0,0,0.3), inset -2px -2px 5px rgba(255,255,255,0.05);
+}
+
+textarea {
+    width: 100%;
+    height: 100px;
+    background: transparent;
+    border: none;
+    outline: none;
+    font-size: 0.95rem;
+    color: #ffffff; /* 입력 글자색 흰색 */
+    line-height: 1.6;
+    resize: none;
+}
+
+textarea::placeholder {
+    color: #888;
+}
+
+.action-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 15px;
+    padding-top: 15px;
+    border-top: 1px solid rgba(255,255,255,0.1);
+}
+
+/* 사진 첨부 */
+.file-wrapper label {
+    font-size: 0.85rem;
+    color: #aaa;
+    cursor: pointer;
+}
+
+.file-wrapper label:hover { color: #5bc0de; }
+#photo-upload { display: none; }
+
+/* 심해의 오션 블루 버튼 */
+.btn-submit {
+    background: linear-gradient(135deg, #005a8d, #003d5f);
+    color: #ffffff;
+    padding: 10px 30px;
+    border-radius: 12px;
+    border: 1px solid rgba(255,255,255,0.1);
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    transition: all 0.3s ease;
+}
+
+.btn-submit:hover {
+    background: linear-gradient(135deg, #0077be, #005a8d);
+    transform: translateY(-2px);
+    box-shadow: 0 0 15px rgba(0, 119, 190, 0.5);
+}
+
+.divider {
+    border: none;
+    height: 1px;
+    background: rgba(255,255,255,0.1);
+    margin: 30px 0;
+}
+
+/* 하단 리스트 */
+.list-header {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.8rem;
+    color: #777;
+    margin-bottom: 15px;
+}
+
+.post-card {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 20px;
+    border-radius: 18px;
+    margin-bottom: 15px;
+    border-left: 4px solid #005a8d;
+    animation: fadeIn 0.5s ease;
+}
+
+.post-content {
+    font-size: 0.95rem;
+    color: #dddddd;
+}
+
+.post-meta {
+    font-size: 0.75rem;
+    color: #666;
+    margin-top: 12px;
+    text-align: right;
+}
+
+/* 추가될 때 애니메이션 */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
