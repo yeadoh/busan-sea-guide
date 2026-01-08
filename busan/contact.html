@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Busan 7 Ocean Wonders</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;500;700&family=Playfair+Display:ital,wght@1,600;1,800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-blue: #4dabf7;
+            --accent-gold: #ffec99;
+            --bg-dark-grey: #1a1c20;
+            --text-white: #ffffff;
+            --text-dim: rgba(255, 255, 255, 0.8);
+        }
+
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            background-color: var(--bg-dark-grey);
+            margin: 0;
+            padding: 50px 20px;
+            color: var(--text-white);
+        }
+
+        .container { max-width: 1200px; margin: 0 auto; }
+
+        .header { text-align: center; margin-bottom: 80px; }
+        .header h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 4rem;
+            font-weight: 800;
+            color: #e9ecef;
+            margin-bottom: 15px;
+            letter-spacing: 4px;
+            font-style: italic;
+            text-shadow: 2px 2px 0px #343a40, 4px 4px 0px rgba(0,0,0,0.2), 0px 0px 20px rgba(77, 171, 247, 0.4); 
+        }
+        .header p {
+        	font-family: 'Noto Sans KR', sans-serif;
+       		font-weight: 200; /* 아주 가벼운 두께로 모던함 강조 */
+        	color: #ffffff;
+        	font-size: 1.1rem;
+        	letter-spacing: 0.4em; /* 자간을 넓혀서 여유로운 느낌 부여 */
+        	margin-top: 10px;
+        	text-indent: 0.4em; /* 자간 때문에 치우친 중앙 정렬 보정 */
+        	opacity: 0.85;
+        	text-transform: uppercase;
+        
+        	/* 은은한 광채 효과 */
+        	text-shadow: 0px 0px 10px rgba(255, 255, 255, 0.3);
+        
+        	/* 애니메이션 효과 (선택사항: 부드럽게 나타남) */
+        	animation: fadeInSubtitle 2s ease-in-out;
+    	}
+
+	@keyframes fadeInSubtitle {
+        	from { opacity: 0; transform: translateY(10px); }
+        	to { opacity: 0.85; transform: translateY(0); }
+    	}
+
+        /* 그리드 및 카드 스타일 */
+        .ocean-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 30px;
+        }
+
+        .ocean-card {
+            position: relative;
+            height: 450px;
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            cursor: pointer;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .ocean-card:hover {
+            transform: translateY(-15px);
+	    box-shadow: 0 30px 60px rgba(0,0,0,0.6);
+            border-color: var(--primary-blue);
+        }
+
+        .ocean-img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.8s ease; }
+        .ocean-card:hover .ocean-img { transform: scale(1.15); }
+
+        .overlay {
+            position: absolute;
+            bottom: 0; left: 0; right: 0; height: 100%;
+            background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.3) 50%, transparent 100%);
+            display: flex; flex-direction: column; justify-content: flex-end;
+            padding: 35px; color: white;
+            box-sizing: border-box; transition: background 0.4s ease;
+        }
+
+        .ocean-num {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            color: var(--accent-gold);
+            margin-bottom: 5px;
+            font-weight: 800;
+        }
+
+        .ocean-title {
+            font-size: 1.8rem; font-weight: 700;
+            transition: transform 0.5s ease;
+            transform: translateY(-20px);
+        }
+
+        .ocean-desc {
+            font-size: 0.95rem; line-height: 1.6;
+            font-weight: 300;
+            color: #dee2e6; opacity: 0; max-height: 0; overflow: hidden;
+            transition: all 0.5s ease; transform: translateY(10px);
+        }
+
+        .ocean-card:hover .overlay {
+            background: linear-gradient(to top, rgba(0,0,0,0.9) 30%, transparent 100%);
+        }
+
+        .ocean-card:hover .ocean-title { transform: translateY(-10px); margin-bottom: 15px; }
+        .ocean-card:hover .ocean-desc { opacity: 1; max-height: 200px; transform: translateY(-10px); }
+
+        /* ---------------------------------
+           새로 추가된 모달(팝업) 스타일
+        --------------------------------- */
+        .modal-overlay {
+            display: none; /* 기본 숨김 */
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            z-index: 9999;
+            justify-content: center;
+            align-items: center;
+            backdrop-filter: blur(10px);
+        }
+
+        .modal-content {
+            position: relative;
+            width: 90%;
+            max-width: 1000px;
+            height: 80vh;
+            background: #fff;
+            border-radius: 20px;
+            overflow: hidden;
+        }
+
+        #popupFrame { width: 100%; height: 100%; border: none; }
+
+        .close-btn {
+            position: absolute;
+            top: 15px; right: 25px;
+            font-size: 35px; color: #fff;
+            cursor: pointer; z-index: 10000;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 { font-size: 2.5rem; }
+	    body { padding: 30px 15px; }
+            .modal-content { width: 95%; height: 90vh; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="header">
+        <h1>The 7 Ocean Wonders</h1>
+        <p>부산의 푸른 영혼을 간직한 일곱 개의 바다 명소</p>
+    </div>
+
+    <div class="ocean-grid">
+        <div class="ocean-card" onclick="openPopup('Haeundae.html')">
+            <img src="https://www.visitbusan.net/uploadImgs/files/cntnts/20191229153530528" alt="해운대" class="ocean-img">
+            <div class="overlay">
+		<span class="ocean-num"></span>
+                <h2 class="ocean-title">해운대 (Haeundae)</h2>
+                <p class="ocean-desc">해운대 해수욕장은 넓은 백사장과 다이내믹한 분위기로 사계절 내내 사랑받는 부산 대표 해변입니다.
+다양한 편의시설과 즐길 거리가 잘 갖춰져 있어 여행객들이 꼭 들르는 명소입니다.</p>
+            </div>
+        </div>
+
+        <div class="ocean-card" onclick="openPopup('Gwangalli.html')">
+            <img src="https://www.visitbusan.net/uploadImgs/files/cntnts/20191229160530047_oen" alt="광안리" class="ocean-img">
+            <div class="overlay">
+		<span class="ocean-num"></span>
+                <h2 class="ocean-title">광안리 (Gwangalli)</h2>
+                <p class="ocean-desc">광안대교 야경과 함께 즐기는 부산 대표 해수욕장으로, 바다와 도심의 매력을 동시에 느낄 수 있고 해변 카페와 맛집, 산책하기 좋은 거리까지 갖춰 여행객에게 인기가 높은 곳입니다.</p>
+            </div>
+        </div>
+
+        <div class="ocean-card" onclick="openPopup('Songjeong.html')">
+            <img src="https://www.visitbusan.net/uploadImgs/files/cntnts/20241016174233058_oen" alt="송정" class="ocean-img">
+            <div class="overlay">
+		<span class="ocean-num"></span>
+                <h2 class="ocean-title">송정 (Songjeong)</h2>
+                <p class="ocean-desc">송정 해수욕장은 수심이 낮고 경사가 완만해 가족 단위 여행객이 찾기 좋은 부산 동부 대표 해수욕장입니다.
+사계절 서핑을 즐길 수 있어 서핑 입문자와 여행객에게 특히 사랑받는 명소입니다.</p>
+            </div>
+        </div>
+
+        <div class="ocean-card" onclick="openPopup('Dadaepo.html')">
+            <img src="https://www.visitbusan.net/uploadImgs/files/cntnts/20191229143232044_wufrotr" alt="다대포" class="ocean-img">
+            <div class="overlay">
+		<span class="ocean-num"></span>
+                <h2 class="ocean-title">다대포 (Dadaepo)</h2>
+                <p class="ocean-desc">낙동강과 남해안이 만나 양질의 모래밭을 만든 곳, 일출과 일몰 조망지로 부산 최고인 곳, 다대포해수욕장은 자연이 주는 황홀경을 맘껏 즐길 수 있는 기분 좋은 장소입니다.</p>
+            </div>
+        </div>
+
+        <div class="ocean-card" onclick="openPopup('Oryukdo.html')">
+            <img src="https://www.visitbusan.net/uploadImgs/files/cntnts/20191225164924070_wufrotr" alt="오륙도" class="ocean-img">
+            <div class="overlay">
+		<span class="ocean-num"></span>
+                <h2 class="ocean-title">오륙도 (Oryukdo)</h2>
+                <p class="ocean-desc">오륙도는 동해와 남해가 만나는 에메랄드빛 바다 위에 떠 있는 바위섬으로, 보는 각도에 따라 다섯 개 또는 여섯 개로 보이는 신비로운 경관을 자랑합니다. 8천만 년 전 화산활동으로 형성된 지질 명소로, 부산국가지질공원이자 해양보호구역으로 지정된 부산 대표 자연 관광지입니다.</p>
+            </div>
+        </div>
+
+        <div class="ocean-card" onclick="openPopup('Taejongdea.html')">
+            <img src="https://www.visitbusan.net/uploadImgs/files/cntnts/20191222180830266_oen" alt="태종대" class="ocean-img">
+            <div class="overlay">
+		<span class="ocean-num"></span>
+                <h2 class="ocean-title">태종대 (Taejongdea)</h2>
+                <p class="ocean-desc">태종대는 초록빛 숲길과 짙푸른 바다가 어우러진 부산 영도 남쪽 끝의 절경 명소로, 오랜 세월 파도에 깎인 기암괴석이 장관을 이룹니다. 신라 태종무열왕이 경치에 반해 머물렀다는 이야기가 전해지는 곳으로, 부산을 대표하는 전국적인 여행지입니다.</p>
+            </div>
+        </div>
+
+        <div class="ocean-card" onclick="openPopup('Cillam.html')">
+            <img src="https://www.visitbusan.net/uploadImgs/files/cntnts/20200514115750475_wufrotr" alt="칠암 신평소 공원" class="ocean-img">
+            <div class="overlay">
+		<span class="ocean-num"></span>
+                <h2 class="ocean-title">칠암 신평소 공원 (Cillam Shinpepso Park)</h2>
+                <p class="ocean-desc">신평소공원은 기장 해안 마을에 배 모양 조형물이 인상적인 공원으로, 동해바다를 따라 드라이브와 산책을 함께 즐기기 좋은 명소입니다. 갈맷길 도보 코스에 포함되어 있어 뚜벅이·자전거 여행자들에게도 사랑받는 힐링 장소입니다.</p>
+            </div>
+        </div>
+
+        </div>
+</div>
+
+<div id="popupModal" class="modal-overlay" onclick="closePopup()">
+    <span class="close-btn" onclick="closePopup()">&times;</span>
+    <div class="modal-content" onclick="event.stopPropagation()">
+        <iframe id="popupFrame" src=""></iframe>
+    </div>
+</div>
+
+<script>
+    function openPopup(url) {
+        const modal = document.getElementById('popupModal');
+        const frame = document.getElementById('popupFrame');
+        frame.src = url;
+        modal.style.display = 'flex';
+        document.body.style.overflow = 'hidden'; // 뒷배경 스크롤 방지
+    }
+
+    function closePopup() {
+        const modal = document.getElementById('popupModal');
+        const frame = document.getElementById('popupFrame');
+        modal.style.display = 'none';
+        frame.src = ''; // 사이트 멈춤
+        document.body.style.overflow = 'auto'; // 스크롤 복구
+    }
+</script>
+
+</body>
+</html>

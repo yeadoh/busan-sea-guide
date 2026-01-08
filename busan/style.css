@@ -1,0 +1,170 @@
+/* 기본 설정 */
+@import url('https://fonts.googleapis.com/css2?family=Pretendard:wght@400;700;900&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #050505;
+    color: #ffffff;
+    font-family: 'Pretendard', sans-serif;
+    line-height: 1.6;
+    overflow-x: hidden;
+}
+
+/* 레이아웃 */
+.hero {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    position: relative;
+}
+
+.container {
+    z-index: 2;
+    padding: 0 20px;
+}
+
+/* 타이포그래피 및 포인트 */
+.badge {
+    display: inline-block;
+    padding: 6px 16px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 100px;
+    font-size: 0.9rem;
+    margin-bottom: 20px;
+    backdrop-filter: blur(10px);
+}
+
+h1 {
+    font-size: clamp(2.5rem, 8vw, 4.5rem);
+    font-weight: 900;
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+    margin-bottom: 24px;
+}
+
+.gradient-text {
+    background: linear-gradient(90deg, #ff7e5f, #feb47b, #86a8e7, #91eae4);
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: gradientMove 5s ease infinite;
+}
+
+p {
+    font-size: 1.1rem;
+    color: #a0a0a0;
+    max-width: 600px;
+    margin: 0 auto 40px;
+}
+
+/* 버튼 스타일 */
+.btn-group {
+    display: flex;
+    justify-content: center; /* 버튼을 중앙에 배치 */
+    margin-top: 10px;
+}
+
+.btn.primary {
+    padding: 14px 40px; /* 버튼을 약간 더 넓게 변경 */
+    border: 1px solid rgba(255, 255, 255, 0.5); /* 테두리를 조금 더 진하게 */
+    color: #fff;
+    border-radius: 12px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); /* 더 부드러운 애니메이션 */
+    backdrop-filter: blur(5px);
+}
+
+.btn.primary:hover {
+    background: #ffffff; /* 마우스를 올리면 하얗게 채워짐 */
+    color: #000;         /* 글자색은 검정으로 변경 */
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(255, 255, 255, 0.1);
+}
+
+/* 배경 효과 수정 */
+.bg-blur {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 500px;
+    height: 500px;
+    background: radial-gradient(circle, rgba(134, 168, 231, 0.2) 0%, rgba(5, 5, 5, 0) 70%);
+    filter: blur(80px);
+    z-index: 1;
+
+    /* 핵심 추가 코드: 이 요소는 마우스 클릭을 무시하고 아래에 있는 버튼에 전달함 */
+    pointer-events: none; 
+}
+
+/* 애니메이션 */
+@keyframes gradientMove {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+
+}
+
+/* 모달 전체 배경 (어두운 부분) */
+.modal-overlay {
+    display: none; /* 기본적으로 숨김 */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.85);
+    z-index: 9999;
+    justify-content: center;
+    align-items: center;
+    backdrop-filter: blur(5px);
+}
+
+/* 팝업창 본체 (작은 창) */
+.modal-content {
+    position: relative;
+    width: 80%;       /* 가로 크기 (원하는 대로 조절 가능) */
+    max-width: 900px;
+    height: 70vh;     /* 세로 크기 */
+    background: white;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 25px 50px rgba(0,0,0,0.5);
+    animation: modalAppear 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+@keyframes modalAppear {
+    from { opacity: 0; transform: scale(0.9); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+/* iframe (외부 사이트가 나타나는 영역) */
+#popupFrame {
+    width: 100%;
+    height: 100%;
+}
+
+/* 우측 상단 닫기 버튼 */
+.close-btn {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    font-size: 30px;
+    color: #333;
+    cursor: pointer;
+    z-index: 10001;
+    transition: color 0.3s;
+}
+
+.close-btn:hover {
+    color: var(--primary-blue);
+}
