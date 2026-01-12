@@ -1,0 +1,73 @@
+name: Deploy to EC2
+
+# [언제 실행할까?]
+on:
+  push:
+    branches:
+      - main  # main 브랜치에 코드가 푸시(Push)될 때만 작동.
+
+# [어떤 일을 할까?]
+jobs:
+  deploy:
+    runs-on: ubuntu-latest # 깃허브가 제공하는 최신 우분투 컴퓨터(Runner)를 하나 빌립니다.
+
+    steps:
+      # 1단계: 깃허브 창고에서 코드를 내려받음 (로봇의 컴퓨터로)
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      # 2단계: SSH로 EC2에 접속해서 '명령'을 내림
+      - name: Deploy to EC2 using SSH
+        uses: appleboy/ssh-action@master
+        with:
+          # Settings -> Secrets에 등록해둔 변수들을 가져옵니다.
+          host: ${{ secrets.HOST_IP }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.KEY }}
+          port: 22
+          
+          # [여기서부터가 진짜! EC2 안에서 실행될 명령어들입니다]
+          script: |
+            # ---------------------------------------------------
+            # 변수 설정 (경로는 본인 상황에 맞게 수정!)
+            # ---------------------------------------------------
+            # 1. 창고 (내 홈 디렉토리의 프로젝트 폴더)
+            REPO_DIR="/home/ec2-user/busan-sea-guide/"
+            
+            # 2. 매장 (실제 웹사이트가 보이는 Nginx 폴더)
+            WEB_ROOT="/usr/share/nginx/html"
+
+            echo "🚀 배포 스크립트 시작!"
+
+            # ---------------------------------------------------
+            # 1. 최신 코드 가져오기 (Pull)
+            # ---------------------------------------------------
+            # 만약 서버에 아직 폴더가 없다면? -> git clone을 해라!
+            if [ ! -d "$REPO_DIR" ]; then
+              echo "📂 프로젝트 폴더가 없어서 새로 받습니다..."
+              git clone https://github.com/yeadoh/busan-sea-guide.git $REPO_DIR
+            else
+              # 폴더가 있다면? -> 안으로 들어가서 최신 거만 당겨와라!
+              echo "🔄 기존 폴더로 이동해서 최신 코드를 당겨옵니다..."
+              cd $REPO_DIR
+              git pull origin main
+            fi
+
+            # ---------------------------------------------------
+            # 2. Nginx 폴더 덮어쓰기 (Clean & Copy)
+            # ---------------------------------------------------
+            echo "🧹 기존 웹 파일들을 정리합니다..."
+            # 주의: 폴더 자체를 지우지 말고, 안의 내용물(*)만 지웁니다.
+            sudo rm -rf $WEB_ROOT/*
+
+            echo "🚚 새 파일들을 옮깁니다..."
+            # 창고($REPO_DIR)에 있는 모든 파일(./*)을 매장($WEB_ROOT)으로 복사!
+            sudo cp -r $REPO_DIR/* $WEB_ROOT/
+
+            # ---------------------------------------------------
+            # 3. 마무리
+            # ---------------------------------------------------
+            echo "✨ Nginx를 재시작합니다..."
+            sudo systemctl restart nginx
+            
+            echo "✅ 배포 성공! 수고하셨습니다!"
